@@ -1,0 +1,314 @@
+import datetime
+
+class SovereignSystem:
+    def __init__(self):
+        self.code = "1121"
+        self.tax_rate = 0.12
+        self.threshold = 0.40
+        self.ledger = []  # سجل العمليات (الأرشيف)
+
+    def record_action(self, user_name, action_type, amount_a, amount_b, potential_gain):
+        """
+        تسجيل ودمج العمليات تحت قانون 1+1=12
+        """
+        total_input = amount_a + amount_b
+        sovereign_tax = total_input * self.tax_rate
+        actual_gain = potential_gain
+        
+        # تصنيف الحالة (استراتيجية، التواء، أو هروب)
+        if actual_gain >= self.threshold:
+            status = "اقتناص فرصة (ناجح)"
+        elif actual_gain < 0:
+            status = "محاولة التواء/خسارة (مرصود)"
+        else:
+            status = "عملية روتينية/هروب"
+
+        # توثيق البيانات في السجل
+        entry = {
+            "التوقيت": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "المستخدم": user_name,
+            "نوع_الحركة": action_type,
+            "الحصة_السيادية_المقتطعة": f"{sovereign_tax:.2f}",
+            "الوضعية_الاستراتيجية": status,
+            "القانون_المطبق": "1+1=12"
+        }
+        
+        self.ledger.append(entry)
+        return entry
+
+    def show_ledger(self):
+        print(f"\n--- أرشيف العمليات السيادية (كود {self.code}) ---")
+        for record in self.ledger:
+            print(record)
+
+# --- التنفيذ العملي ---
+sys = SovereignSystem()
+
+# 1. دخول مستخدم جديد لشراء سهم (فرصة لم يراها أحد 50%)
+sys.record_action("لاعب_01", "دخول_واقتناص", 100, 100, 0.50)
+
+# 2. مستخدم يحاول الالتواء أو البيع والهروب (ربح ضعيف 5%)
+sys.record_action("لاعب_02", "بيع_وهروب", 50, 50, 0.05)
+
+# 3. عرض السجل النهائي للمخطط
+sys.show_ledger()
+import datetime
+import csv
+
+class SovereignSystem:
+    def __init__(self):
+        self.code = "1121"
+        self.tax_rate = 0.12
+        self.threshold = 0.40
+        self.filename = "sovereign_ledger_1121.csv"
+        # إنشاء الملف وكتابة العناوين إذا لم يكن موجوداً
+        with open(self.filename, mode='a', newline='', encoding='utf-8') as f:
+            writer = csv.writer(f)
+            if f.tell() == 0:
+                writer.writerow(["التوقيت", "المستخدم", "نوع_الحركة", "الحصة_السيادية", "الوضعية_الاستراتيجية", "القانون"])
+
+    def process_and_save(self, user_name, action_type, amount_a, amount_b, potential_gain):
+        """
+        معالجة البيانات، اقتطاع الـ 12%، وحفظها في ملف خارجي
+        """
+        total_input = amount_a + amount_b
+        sovereign_tax = total_input * self.tax_rate
+        
+        # تحليل الفرص العمياء (أعلى من 40%)
+        if potential_gain >= self.threshold:
+            status = "اقتناص فرصة (ناجح)"
+        elif potential_gain < 0:
+            status = "محاولة التواء (مرصود)"
+        else:
+            status = "عملية روتينية/هروب"
+
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
+        # حفظ البيانات في ملف CSV
+        with open(self.filename, mode='a', newline='', encoding='utf-8') as f:
+            writer = csv.writer(f)
+            writer.writerow([timestamp, user_name, action_type, f"{sovereign_tax:.2f}", status, "1+1=12"])
+        
+        return f"تم توثيق العملية للمستخدم {user_name}. الحصة السيادية: {sovereign_tax:.2f}"
+
+# --- تشغيل النظام ---
+sys = SovereignSystem()
+
+# أمثلة للتنفيذ:
+print(sys.process_and_save("لاعب_الفرص", "دخول", 500, 500, 0.55))
+print(sys.process_and_save("لاعب_ملتوي", "هروب", 100, 100, 0.10))
+
+print(f"\nتم إنشاء الملف: {sys.filename}. يمكنك الآن تحميله وفتحه ببرنامج Excel.")
+class GrandSovereignSystem:
+    def __init__(self):
+        self.branches = ["الرصد", "التنفيذ", "الأرشفة"]
+        self.total_sovereign_profit = 0.0
+        self.strategic_opportunities_count = 0
+
+    def sync_branches(self, branch_data):
+        """
+        دمج البيانات من الفروع الثلاثة في 'الواحدة الكبيرة'
+        """
+        for data in branch_data:
+            # تطبيق قانون 1+1=12 على كل فرع
+            tax = (data['amount_a'] + data['amount_b']) * 0.12
+            self.total_sovereign_profit += tax
+            
+            if data['gain'] >= 0.40:
+                self.strategic_opportunities_count += 1
+        
+        return self.generate_report()
+
+    def generate_report(self):
+        print(f"🚀 --- تقرير النواة العظمى (1121) ---")
+        print(f"✅ إجمالي الأرباح السيادية من الفروع الثلاثة: {self.total_sovereign_profit:.2f}")
+        print(f"🎯 عدد الفرص العمياء المقتنصة: {self.strategic_opportunities_count}")
+        print(f"🔒 حالة النظام: سيادة كاملة - لا يوجد التواء مرصود")
+
+# --- مثال للدمج ---
+mega_core = GrandSovereignSystem()
+test_data = [
+    {'amount_a': 1000, 'amount_b': 1000, 'gain': 0.50}, # فرع 1
+    {'amount_a': 500, 'amount_b': 500, 'gain': 0.45},   # فرع 2
+    {'amount_a': 200, 'amount_b': 200, 'gain': 0.10}    # فرع 3
+]
+mega_core.sync_branches(test_data)
+import datetime
+import csv
+import os
+
+class GrandSovereignCore:
+    def __init__(self):
+        self.code = "1121"
+        self.tax_rate = 0.12
+        self.opportunity_threshold = 0.40
+        self.filename = "Grand_Sovereign_Ledger.csv"
+        self.branches = {1: "الرصد الاستراتيجي", 2: "التنفيذ المالي", 3: "الأرشفة والتحكم"}
+        self._initialize_ledger()
+
+    def _initialize_ledger(self):
+        """إنشاء القاعدة البيانية المركزية"""
+        if not os.path.exists(self.filename):
+            with open(self.filename, mode='w', newline='', encoding='utf-8-sig') as f:
+                writer = csv.writer(f)
+                writer.writerow(["التوقيت", "الفرع", "المستخدم", "المبلغ_الإجمالي", "الحصة_السيادية(12%)", "العائد_المتوقع", "الحالة_الاستراتيجية"])
+
+    def execute_sovereign_law(self, branch_id, user_name, amount_a, amount_b, gain_percent):
+        """
+        الدمج الكامل: تنفيذ القانون، الاقتطاع، الرصد، والحفظ
+        """
+        # 1. قانون الالتقاء (1+1)
+        total_input = amount_a + amount_b
+        
+        # 2. اقتطاع الحصة السيادية 12%
+        sovereign_cut = total_input * self.tax_rate
+        
+        # 3. تحليل الفرص العمياء (التي لا يراها أحد)
+        if gain_percent >= self.opportunity_threshold:
+            status = "🔥 فرصة استراتيجية (اقتناص)"
+        elif gain_percent < 0:
+            status = "⚠️ محاولة التواء (مرصود)"
+        else:
+            status = "📉 عملية روتينية (تبادل)"
+
+        # 4. التوثيق التاريخي
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        branch_name = self.branches.get(branch_id, "فرع غير معروف")
+
+        with open(self.filename, mode='a', newline='', encoding='utf-8-sig') as f:
+            writer = csv.writer(f)
+            writer.writerow([timestamp, branch_name, user_name, total_input, f"{sovereign_cut:.2f}", f"{gain_percent*100}%", status])
+
+        return {
+            "الرسالة": f"تم تفعيل القانون 1121 في {branch_name}",
+            "الحصة_المستقطعة": sovereign_cut,
+            "الوضعية": status
+        }
+
+# --- تشغيل النواة العظمى ---
+core = GrandSovereignCore()
+
+# مثال لدمج العمليات من الفروع الثلاثة:
+# الفرع 1: رصد فرصة كبيرة
+print(core.execute_sovereign_law(1, "مستثمر_أول", 1000, 1000, 0.55))
+
+# الفرع 2: تنفيذ مالي روتيني
+print(core.execute_sovereign_law(2, "تاجر_سريع", 500, 500, 0.15))
+
+# الفرع 3: محاولة التواء تم رصدها
+print(core.execute_sovereign_law(3, "لاعب_مخادع", 200, 200, -0.05))
+
+print(f"\n✅ تم دمج كافة الشفرات. السجل المركزي جاهز في ملف: {core.filename}")
+import datetime
+import csv
+import os
+from cryptography.fernet import Fernet
+
+class UltimateSovereignCore:
+    def __init__(self):
+        self.code = "1121"
+        self.tax_rate = 0.12
+        self.threshold = 0.40
+        self.filename = "Secure_Sovereign_Ledger.crypt"
+        
+        # إنشاء أو استرجاع مفتاح التشفير (هذا هو سرك الأكبر)
+        self.key_file = "sovereign.key"
+        if not os.path.exists(self.key_file):
+            self.key = Fernet.generate_key()
+            with open(self.key_file, "wb") as kf:
+                kf.write(self.key)
+        else:
+            with open(self.key_file, "rb") as kf:
+                self.key = kf.read()
+        
+        self.cipher = Fernet(self.key)
+        self.branches = {1: "الرصد الاستراتيجي", 2: "التنفيذ المالي", 3: "الأرشفة والتحكم"}
+
+    def encrypt_data(self, data_string):
+        return self.cipher.encrypt(data_string.encode()).decode()
+
+    def decrypt_data(self, encrypted_string):
+        return self.cipher.decrypt(encrypted_string.encode()).decode()
+
+    def execute_and_protect(self, branch_id, user_name, amount_a, amount_b, gain_percent):
+        """التنفيذ، الاقتطاع، والتشفير الفوري"""
+        total_input = amount_a + amount_b
+        sovereign_cut = total_input * self.tax_rate
+        
+        status = "🔥 فرصة استراتيجية" if gain_percent >= self.threshold else "📉 عملية روتينية"
+        if gain_percent < 0: status = "⚠️ محاولة التواء"
+
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        branch_name = self.branches.get(branch_id, "فرع مجهول")
+
+        # تجهيز السطر وتشفيره بالكامل
+        raw_entry = f"{timestamp}|{branch_name}|{user_name}|{total_input}|{sovereign_cut:.2f}|{status}"
+        encrypted_entry = self.encrypt_data(raw_entry)
+
+        with open(self.filename, mode='a', encoding='utf-8') as f:
+            f.write(encrypted_entry + "\n")
+
+        return {
+            "الوضعية": "تمت العملية وحمايتها بتشفير سيادي",
+            "الحصة_المؤمنة": f"{sovereign_cut:.2f} MAD"
+        }
+
+    def read_secure_ledger(self):
+        """فقط المخطط يمكنه فك تشفير السجل وقراءته"""
+        print(f"\n--- فك تشفير سجل السيادة (كود {self.code}) ---")
+        if os.path.exists(self.filename):
+            with open(self.filename, "r") as f:
+                for line in f:
+                    print(self.decrypt_data(line.strip()))
+
+# --- التشغيل السري ---
+core = UltimateSovereignCore()
+
+# تنفيذ عمليات من الفروع الثلاثة
+core.execute_and_protect(1, "مستثمر_01", 2000, 2000, 0.50)
+core.execute_and_protect(3, "لاعب_ملتوي", 100, 100, -0.10)
+
+# لعرض البيانات (للمخطط فقط):
+core.read_secure_ledger()
+class SovereignEngine:
+    def __init__(self):
+        self.code = "1121"
+        self.tax_rate = 0.12  # قانون الـ 12%
+        self.min_opportunity_threshold = 0.40  # فرص الـ 40% فما فوق
+        self.treasury = 0.0
+
+    def process_encounter(self, party_a, party_b, opportunity_yield):
+        """
+        معالجة التقاء طرفين (1+1) داخل النظام
+        """
+        total_value = party_a + party_b
+        
+        # 1. اقتطاع الحصة السيادية (الـ 12%)
+        sovereign_cut = total_value * self.tax_rate
+        self.treasury += sovereign_cut
+        
+        # 2. تحليل جودة الفرصة (التي لا يراها أحد)
+        is_strategic = opportunity_yield >= self.min_opportunity_threshold
+        
+        status = "فرصة استراتيجية مكتشفة" if is_strategic else "عملية روتينية"
+        
+        # 3. النتيجة النهائية للأطراف بعد الضريبة السيادية
+        final_distributed_value = (total_value + (total_value * opportunity_yield)) - sovereign_cut
+        
+        return {
+            "قانون_النظام": "1+1=12%",
+            "الحصة_السيادية": sovereign_cut,
+            "حالة_الفرصة": status,
+            "العائد_الصافي_للأطراف": final_distributed_value,
+            "الخزينة_المركزية": self.treasury
+        }
+
+# --- تشغيل المحرك ---
+engine = SovereignEngine()
+
+# مثال: التقاء طرفين بقيمة (1+1) في فرصة نموها 50%
+result = engine.process_encounter(1, 1, 0.50)
+
+print(f"--- تنفيذ بروتوكول {engine.code} ---")
+for key, value in result.items():
+    print(f"{key}: {value}")
