@@ -1,0 +1,13 @@
+# وحدة التجارة السيارة - أسطول الصيف
+mobile_commerce = {
+    "Route_1": "Tetouan - Sebta (4 Units)",
+    "Route_2": "Tetouan - Oued Laou (4 Units)",
+    "Products": ["Sovereign Coffee", "Fresh Fruits", "Cold Drinks"],
+    "Strategy": "Traffic-Jam Service (Summer Protocol)"
+}
+
+def calculate_summer_revenue():
+    # حساب الأرباح المتوقعة في وقت الذروة (الزحام)
+    base_profit = 500 # دولار يومياً لكل وحدة في الصيف
+    total_daily = base_profit * 8
+    print(f"التدفق المالي اليومي المتوقع: {total_daily}$")
