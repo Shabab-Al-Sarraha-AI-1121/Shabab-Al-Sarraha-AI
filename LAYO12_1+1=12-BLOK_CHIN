@@ -1,0 +1,140 @@
+￼enter https://www.mit.edu/~amini/LICENSE.md#:~:text=%23%20Released%20under%20MIT,IN%20THE%20SOFTWARE.import pandas as pd
+
+def generate_sovereign_message(user_status):
+    """توليد رسالة استهداف بناءً على تصنيف المستخدم"""
+    base_msg = "منطقنا السيادي 1+1=12. هل أنت جاهز للتحول؟"
+    
+    if user_status == 'platinum':
+        return f"تحية لقادة السيولة: {base_msg}"
+    elif user_status == 'bronze':
+        return f"كتلة الضخ (المصدر البرونزي): {base_msg}"
+    else:
+        return f"احتياطي استراتيجي: {base_msg}"
+
+# أتمتة الاستهداف للتنفيذ
+# يتم تطبيق هذا المنطق على قاعدة البيانات لفرز الأهداف وتوجيه الرسالة المناسبة لكل فئة
+df['target_message'] = df['status'].apply(generate_sovereign_message)
+import pandas as pd
+
+def generate_sovereign_message(user_status):
+    """توليد رسالة استهداف بناءً على تصنيف المستخدم"""
+    base_msg = "منطقنا السيادي 1+1=12. هل أنت جاهز للتحول؟"
+    
+    if user_status == 'platinum':
+        return f"تحية لقادة السيولة: {base_msg}"
+    elif user_status == 'bronze':
+        return f"كتلة الضخ (المصدر البرونزي): {base_msg}"
+    else:
+        return f"احتياطي استراتيجي: {base_msg}"
+
+# أتمتة الاستهداف للتنفيذ
+df['target_message'] = df['status'].apply(generate_sovereign_message)
+import os
+import requests
+import subprocess
+from cryptography.fernet import Fernet
+
+# --- الإعدادات السيادية ---
+GITHUB_REPO = "Ghorabae3/Shabab-Al-Sarraha-AI"
+API_URL = f"https://api.github.com/repos/{GITHUB_REPO}/contents/"
+# استدعاء مفتاح التشفير من البيئة المحيطة (Security Layer)
+ENCRYPTION_KEY = os.getenv("MASTER_KEY_12") 
+
+def initialize_cipher():
+    """توليد أو استرجاع مفتاح التشفير"""
+    if not ENCRYPTION_KEY:
+        # إذا لم يوجد مفتاح، يتم توليد واحد جديد (يجب حفظه في مكان آمن فوراً)
+        key = Fernet.generate_key()
+        print(f"[!] تحذير: لم يتم العثور على مفتاح. مفتاحك الجديد هو: {key.decode()}")
+        return Fernet(key)
+    return Fernet(ENCRYPTION_KEY.encode())
+
+def encrypt_data(data):
+    """تشفير المحتوى قبل الإرسال"""
+    cipher = initialize_cipher()
+    return cipher.encrypt(data.encode())
+
+def decrypt_data(encrypted_data):
+    """فك تشفير المحتوى المستلم"""
+    cipher = initialize_cipher()
+    try:
+        return cipher.decrypt(encrypted_data).decode()
+    except Exception:
+        return "[X] فشل فك التشفير: المفتاح غير متطابق أو البيانات تالفة."
+
+def check_secure_tunnel():
+    """التأكد من أن البيانات تمر عبر نفق Tailscale"""
+    status = subprocess.run(["tailscale", "status"], capture_output=True, text=True)
+    return "logged in" in status.stdout
+
+def sync_and_secure():
+    if not check_secure_tunnel():
+        print("[!] إيقاف: النفق المشفر غير نشط. خطر تسرب البيانات.")
+        return
+
+    # جلب الملفات من GitHub
+    response = requests.get(API_URL)
+    if response.status_code == 200:
+        files = response.json()
+        print(f"[✓] تم الاتصال بالمستودع. جاري فحص الملفات المشفره...")
+        
+        for file in files:
+            if file['name'].endswith('.enc'):
+                # جلب محتوى الملف المشفر
+                file_content = requests.get(file['download_url']).text
+                decrypted_content = decrypt_data(file_content.encode())
+                print(f"[*] ملف آمن: {file['name']} | المحتوى المفكوك: {decrypted_content[:20]}...")
+    else:
+        print("[X] خطأ في الوصول إلى المستودع.")
+
+if __name__ == "__main__":
+    sync_and_secure()
+import requests
+import subprocess
+import os
+
+# إعدادات الهوية الرقمية
+GITHUB_REPO = "Ghorabae3/Shabab-Al-Sarraha-AI"
+API_URL = f"https://api.github.com/repos/{GITHUB_REPO}/contents/"
+# يفضل وضع التوكن في متغيرات النظام لضمان الأمان المطلق
+GITHUB_TOKEN = os.getenv("GH_TOKEN") 
+
+def check_network_integrity():
+    """التحقق من أن نفق Tailscale نشط لضمان أمان المسار"""
+    try:
+        status = subprocess.check_output(["tailscale", "status"], stderr=subprocess.STDOUT)
+        if b"logged in" in status:
+            print("[✓] نفق Tailscale مؤمن.")
+            return True
+    except Exception:
+        print("[!] تحذير: نفق Tailscale غير نشط. المسار مكشوف.")
+        return False
+
+def fetch_strategic_data():
+    """جلب البيانات من المستودع السيادي"""
+    headers = {"Authorization": f"token {GITHUB_TOKEN}"} if GITHUB_TOKEN else {}
+    
+    print(f"[*] جلب البيانات من: {GITHUB_REPO}...")
+    response = requests.get(API_URL, headers=headers)
+    
+    if response.status_code == 200:
+        contents = response.json()
+        for item in contents:
+            # هنا يتم تصنيف الملفات بناءً على النوع (برمجي، وثائقي، استراتيجي)
+            print(f"-> تم رصد: {item['name']} | النوع: {item['type']}")
+        return contents
+    else:
+        print(f"[X] فشل في الوصول: {response.status_code}")
+        return None
+
+def deploy_locally(data):
+    """محاكاة عملية الحقن البرمجي داخل الخادم المحلي"""
+    if data:
+        # منطق المعالجة والحقن يتم هنا
+        print("[✓] تم تحديث النظام بالبيانات الجديدة عبر النفق المشفر.")
+
+if __name__ == "__main__":
+    if check_network_integrity():
+        repo_data = fetch_strategic_data()
+        deploy_locally(repo_data)
+"https://api.github.com/repos/{USERNAME}/{REPO_NAME}/contents/filename.txt
