@@ -1,0 +1,68 @@
+import requests
+
+url = "https://api.github.com/repos/Ghorabae3/Shabab-Al-Sarraha-AI/contents/"
+response = requests.get(url)
+
+if response.status_code == 200:
+    print("تم الاتصال بنجاح بمستودع الشباب.. النظام جاهز.")
+    # هنا تظهر قائمة الملفات
+    for file in response.json():
+        print(f"الملف الموجود: {file['name']}")
+import requests
+import json
+
+# الإعدادات السيادية
+API_KEY = "4f173d8b42f4e968df14"
+REPO_URL = "https://api.github.com/repos/Ghorabae3/Shabab-Al-Sarraha-AI/contents/market_intelligence.json"
+
+def get_market_data(keyword):
+    # استخدام المفتاح لسحب حجم البحث والبيانات الممالية
+    url = f"https://api.keywordseverywhere.com/v1/get_keyword_data"
+    headers = {'Authorization': f'Bearer {API_KEY}', 'Accept': 'application/json'}
+    # (هنا يتم إرسال الطلب للحصول على البيانات)
+    return {"status": "success", "data": "نتائج البحث عن الأصول"}
+
+def update_github_repository(content):
+    # دمج البيانات في المستودع الرقمي
+    print("جاري حقن البيانات في Shabab-Al-Sarraha-AI...")
+    # (هنا يتم استخدام GitHub API لتحديث الملف)
+
+# تشغيل النظام
+data = get_market_data("blockchain assets")
+update_github_repository(data)
+import requests
+import base64
+from datetime import datetime
+
+# الإحداثيات السيادية
+SECRET_KEY = "4f173d8b42f4e968df14"
+REPO_OWNER = "Ghorabae3"
+REPO_NAME = "Shabab-Al-Sarraha-AI"
+FILE_PATH = "reports/market_signals.json"
+GITHUB_TOKEN = "YOUR_GITHUB_TOKEN" # يجب وضعه في الـ Secrets
+
+def execute_sovereign_task():
+    print(f"[{datetime.now()}] - 1121: بدء عملية التنفيذ..")
+    
+    # 1. سحب البيانات باستخدام مفتاحك المدمج
+    # (هنا يتم استدعاء API الكلمات المفتاحية لرصد الفرص)
+    data_payload = {
+        "timestamp": str(datetime.now()),
+        "status": "active",
+        "intel": "تحليل أولي لفرص الأصول الرقمية بناءً على مفتاح 4f17..."
+    }
+    
+    # 2. تحويل البيانات لرفعها إلى GitHub
+    content = json.dumps(data_payload, indent=4).encode("utf-8")
+    encoded_content = base64.b64encode(content).decode("utf-8")
+    
+    # 3. الحقن المباشر في المستودع الرقمي
+    url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{FILE_PATH}"
+    headers = {"Authorization": f"token {GITHUB_TOKEN}", "Accept": "application/vnd.github.v3+json"}
+    
+    # تنفيذ عملية الرفع (Push)
+    # ملاحظة: يتطلب هذا السكربت وجود توكن GitHub في بيئة العمل للسيادة الكاملة
+    print("نقطة الانطلاق: تم تجهيز البيانات للرفع.")
+
+if __name__ == "__main__":
+    execute_sovereign_task()
