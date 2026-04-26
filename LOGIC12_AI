@@ -1,0 +1,61 @@
+# LION 12 - STRATEGIC SOVEREIGN CODE
+# تفعيل الشفرة العليا بقيمة التأديب الاستراتيجية (200)
+
+class Lion12AssetHunter:
+    def __init__(self):
+        self.sovereign_code = "1121"
+        self.logic = "1+1=12"
+        self.target = 1000000
+        self.liquidity_status = "SECURED"
+        
+        # دمج المحافظ المحددة للتأديب والسيطرة
+        self.vaults = {
+            "SOL_VAULT": "9ahbWZwQ7H7Ma4GRiJbqHuTHuqS8QWomyBLpHqurzebG",
+            "BTC_VAULT": "bc1qqgqzz2awl05mckcxh3js5y303rgh5yxe57p5ge"
+        }
+        
+        # القيمة الاستراتيجية المختارة للتأديب
+        self.discipline_value = 200 
+
+    def execute_logic(self):
+        print(f"> [SYSTEM]: تم تفعيل شفرة السيادة {self.sovereign_code}")
+        print(f"> [SYSTEM]: القيمة الاستراتيجية للعملية: ${self.discipline_value}")
+        
+        if self.discipline_value == 200:
+            print("> [LOGIC]: يتم الآن فرض النظام وتأديب الأصول المتمردة..")
+            return "تم التثبيت بنجاح بقوة 200"
+        else:
+            return "القيمة غير كافية للفرض السيادي"
+
+# تشغيل المحرك
+hunter = Lion12AssetHunter()
+status = hunter.execute_logic()
+print(f"الحالة النهائية: {status}")
+# منطق دمج المحافظ في الشفرة العليا
+wallets = [
+    "9ahbWZwQ7H7Ma4GRiJbqHuTHuqS8QWomyBLpHqurzebG",
+    "bc1qqgqzz2awl05mckcxh3js5y303rgh5yxe57p5ge"
+]
+
+def execute_sovereign_merge(value=200):
+    # تطبيق قانون 1+1=12
+    discipline_factor = value * 12 
+    print(f"تم دمج المحافظ بقيمة استراتيجية: {value}")
+    print(f"قوة التأثير الحالية: {discipline_factor}")
+    return "تم التأديب بنجاح. السيادة مفعلة."
+
+# تنفيذ العملية
+execute_sovereign_merge(200)
+def check_sovereign_balance(address):
+    # تحويل العنوان إلى تنسيقChecksum
+    address = w3.to_checksum_address(address)
+    balance_wei = w3.eth.get_balance(address)
+    
+    # تحويل من Wei إلى Ether
+    balance_eth = w3.from_wei(balance_wei, 'ether')
+    
+    return balance_eth
+
+# عنوان المحفظة الخاصة بالمشروع
+my_wallet = "0x..." # ضع عنوان محفظتك هنا
+print(f"رصيد الخزنة الحالي: {check_sovereign_balance(my_wallet)}")
